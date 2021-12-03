@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useEffect } from 'react';
+import Navbar from './components/Navbar'
+import Search from './components/Search'
+import marketoService from './services/marketo'
 import './App.css';
 
+
+
 function App() {
+  let pageURL = (window.location.href).split('/')[3]
+  pageURL = pageURL.split('?')[0]
+  console.log('pageurl', pageURL)
+
+  const hook = () => {
+    marketoService  
+      .getAllServer(pageURL)
+      .then(response => console.log('frontend', response))
+  }
+
+  useEffect(hook, )
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="App">
+      <Navbar/>
+      <Search/>
     </div>
   );
 }
