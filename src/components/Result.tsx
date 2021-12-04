@@ -1,7 +1,10 @@
 import React, {Dispatch, SetStateAction, useState} from "react"
 import News from './News'
+import CoinData from './CoinData'
+import WatchList from './WatchList'
 import marketoService from '../services/marketo'
 import {CoinName, CoinInfo, CoinNews} from '../types'
+
 
 type ResultProps = {
     showSearch: boolean,
@@ -53,13 +56,18 @@ function Result({showSearch, results, setShowSearch}:ResultProps) {
     }
     if (coinData){
         return(
-            <div id="coinData-container">
-                <div id="coin-data">
-                    {coinData?.symbol} {coinData?.open}
-                </div>
-                
-                <div id="coin-news">
+            <div id="coin-info-container">
+
+                <div className="info-container" id="coin-news">
                     <News coinNews={coinNews}/>
+                </div>
+
+                <div className="info-container" id="coin-data">
+                    <CoinData coinData={coinData}/>
+                </div>
+
+                <div className="info-container" id="coin-list">
+                    <WatchList/>
                 </div>
             </div>
         )

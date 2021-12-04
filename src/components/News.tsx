@@ -1,5 +1,6 @@
 import react from 'react';
 import {CoinNews} from '../types'
+import Article from './Article'
 
 type NewsProps = {
     coinNews: CoinNews[] | undefined,
@@ -13,12 +14,17 @@ type NewsProps = {
 function News({coinNews}:NewsProps){
     if(coinNews?.length === 0){
         return (
-            <div> No recent news about this coin!</div>
+            <div> 
+                <div className="module-header"> Recent articles:</div>
+                <div>No recent news about this coin!</div>
+            </div>
         )
     }
     return(
         <div>
-            {coinNews?.map((item, idx) => <div key={idx}>{item.title} by {item.author} <a href={item.article_url}>Click here!</a></div>)}
+            <div className="module-header">Recent Articles</div>
+            
+            {coinNews?.map((item, idx) => <Article key={idx} articleData={item}/>)}
         </div>
     )
 }
