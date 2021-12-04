@@ -1,12 +1,12 @@
-import * as React from "react"
-import { useParams } from "react-router-dom"
-import { resourceLimits } from "worker_threads"
-import Coin from "./Coin"
-import { CoinName } from '../types'
+import React, {Dispatch, SetStateAction, useState} from "react"
+import News from './News'
+import marketoService from '../services/marketo'
+import {CoinName, CoinInfo, CoinNews} from '../types'
 
 type ResultProps = {
-    showCoin: boolean,
+    showSearch: boolean,
     results: CoinName[],
+    setShowSearch: Dispatch<SetStateAction<boolean>>
 }
 /**
  * Result returns component that lists out max 10 search results
@@ -18,26 +18,55 @@ type ResultProps = {
  * @returns 
  */
 
-function Result({showCoin, results}:ResultProps) {
-    // const { id } = useParams();
-    // set variable to return value from API call 
+function Result({showSearch, results, setShowSearch}:ResultProps) {
+    // want to set coinData to CoinInfo type 
+    const [coinData, setCoinData] = useState<CoinInfo>()
+    const [coinNews, setCoinNews] = useState<CoinNews[]>()
+
     const handleCoinSelection = (e:React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         console.log('clicked this', e.currentTarget.id)
-        // use this variable to then search and populate new page with coin information 
+        marketoService
+        .getCoin(e.currentTarget.id)
+        .then(response => {
+            console.log('coin search', response);
+            setShowSearch(false);
+            setCoinData(response);
+        })
+        marketoService
+        .getCoinNews(e.currentTarget.id)
+        .then(response => {
+            console.log('coin news', response);
+            setCoinNews(response)
+        })
+
     }
     console.log('inside result', results)
-    if(showCoin){
+    if(showSearch){
         if(results.length === 0){
-            return(<div>No result found!!~</div>)
+            return(<div id="no-result-msg">No result found matching your search term.</div>)
         }
         return(
             <div>
-                {results.map((item, idx) => <div key={idx} id={item.ticker} onClick={(e) => handleCoinSelection(e)}>{item.name} ({item.ticker})!!</div>)}
+                {results.map((item, idx) => <div key={idx} className="result-name" id={item.base_currency_symbol} onClick={(e) => handleCoinSelection(e)}>{item.base_currency_symbol} ({item.name})!!</div>)}
             </div>
         )
     }
-
-    else return (<div>empty</div>)
+    if (coinData){
+        return(
+            <div id="coinData-container">
+                <div id="coin-data">
+                    {coinData?.symbol} {coinData?.open}
+                </div>
+                
+                <div id="coin-news">
+                    <News coinNews={coinNews}/>
+                </div>
+            </div>
+        )
+    }
+    else return (
+        <div></div>
+    )
     
 }
 

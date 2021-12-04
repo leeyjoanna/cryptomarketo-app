@@ -1,0 +1,45 @@
+html{
+    min-height: 100vh;
+}
+h1{
+    font-size: 40px;
+    padding: 5px 10px;
+}
+h1:hover{
+    cursor: pointer;
+}
+
+#search-component{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 60%;
+}
+#search-description{
+    font-size: 22px;
+    font-weight: 200;
+}
+#search{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0px 40px 0px;
+}
+
+.result-name{
+    padding: 15px 10px;
+    margin: 10px 0px;
+    border: solid 1px #1976d2;
+    border-radius: 3px;
+}
+
+.result-name:hover{
+    background-color: #e0eefc;
+    cursor: pointer;
+}
+#no-result-msg{
+    font-size: 18px;
+
+}

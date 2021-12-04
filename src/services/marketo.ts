@@ -1,14 +1,24 @@
 import axios from 'axios'
 
+const getHome = () => {
+    const request = axios.get(`/`)
+    return request.then(response => response.data)
+}
+
 const getList = (uuid:string) => {
     const request = axios.get(`/api/myList/${uuid}`)
     return request.then(response => response.data)
 }
 
 const getCoin = (coinID:string) => {
-    const request = axios.get(`/coin/${coinID}`, {params: coinID})
+    const request = axios.get(`/api/coin/${coinID}`, {params: coinID})
     return request.then(response => response.data)
 } 
+
+const getCoinNews = (coinID:string) => {
+    const request = axios.get(`api/coinNews/${coinID}`, {params: coinID})
+    return request.then(response => response.data)
+}
 
 const testService = () => {
     const request = axios.get(`/api/testing`);
@@ -26,8 +36,10 @@ const getAllServer = (url:string) => {
 }
 
 const services = {
+    getHome,
     getList, 
     getCoin,
+    getCoinNews,
     testService,
     getAllServer,
     searchService

@@ -8,7 +8,7 @@ import { Button, TextField } from '@mui/material';
 
 function Search():JSX.Element{
     const [ searchTerm, setSearchTerm ] = useState('')
-    const [ showCoin, setShowCoin ] = useState(false)
+    const [ showSearch, setShowSearch ] = useState(false)
     const [ results, setResults ] = useState([])
 
     const handleSearch = () => {
@@ -18,21 +18,22 @@ function Search():JSX.Element{
             .searchService(searchTerm)
             .then(response => {
                 console.log('search result', response);
-                setShowCoin(true)
+                setShowSearch(true)
                 setResults(response)
             })
         return false;
     }
 
     return(
-        <div>
+        <div id="search-component">
+            <div id="search-description">Curious about a coin? Look it up here by ticker or name!</div>
             <div id="search">
-                <TextField id="outlined-basic" variant="outlined" type="text" autoComplete="off" onChange={(e) => {setSearchTerm(e.target.value)}}>
+                <TextField sx={{ width: '300px' }} id="outlined-basic" variant="outlined" type="text" autoComplete="off" onChange={(e) => {setSearchTerm(e.target.value)}}>
                 </TextField>
-                <Button variant="contained" onClick={handleSearch}>Search</Button>
+                <Button sx={{ ml: 4 }} id="search-button" variant="contained" onClick={handleSearch}>Search</Button>
             </div>
             <div id="results">
-                <Result showCoin={showCoin} results={results}/>
+                <Result showSearch={showSearch} results={results} setShowSearch={setShowSearch}/>
             </div>
         </div>
     )
