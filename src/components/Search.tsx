@@ -1,4 +1,4 @@
-import react, {Dispatch, SetStateAction, useState} from "react"
+import React, {Dispatch, SetStateAction, useState} from "react"
 import marketoService from '../services/marketo'
 import Result from './Result'
 import { Button, TextField } from '@mui/material';
@@ -26,12 +26,9 @@ function Search({listID, coinList, setCoinList}:SearchProps){
     const [ results, setResults ] = useState([])
 
     const handleSearch = () => {
-        console.log('searching')
-        console.log(searchTerm)
         marketoService
             .searchService(searchTerm)
             .then(response => {
-                console.log('search result', response);
                 setShowSearch(true)
                 setResults(response)
             })

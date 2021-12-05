@@ -10,13 +10,11 @@ import './App.css';
 function App() {
   const [coinList, setCoinList] = useState<CoinDB[]>([])
   const [listID, setListID] = useState<string>('')
-  console.log('HHH', coinList);
 
   const hook = () => {
     const cookies = new Cookies()
     const cookiesListID = cookies.get('marketoListID')
     if(cookiesListID){
-      console.log('cookies found', cookiesListID);
       setListID(cookiesListID)
       marketoService
         .getList(cookiesListID)
@@ -27,7 +25,6 @@ function App() {
     }
     else{
       const newID:string = uuid();
-      console.log('cookies not found', newID);
       cookies.set('marketoListID', newID, { path: '/'})
       setListID(newID)
       marketoService

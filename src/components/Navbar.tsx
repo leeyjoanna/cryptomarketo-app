@@ -2,7 +2,6 @@ import React from 'react';
 
 function Navbar():JSX.Element {
     const handleHomeClick:any = () => {
-        console.log('home')
         window.location.href='/'
         return false
     }

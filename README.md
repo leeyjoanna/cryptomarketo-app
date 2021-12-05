@@ -1,9 +1,10 @@
 # CryptoMarketo (front end folder)
 
-[Use it here on Heroku!]()
-A web app where users can search for cryptocurrency details and create their own shareable watch list.
+[Use it here on Heroku!](https://cryptomarketo.herokuapp.com/)
+A web app where users can search for cryptocurrency details and create their own watch list stored locally.\
 
-Limitations: free tier API key limits to 5 calls/minute with reduced data provided about cryptocurrencies. 
+Limitations: free tier API key limits to 5 calls/minute with reduced data provided about cryptocurrencies.\
+Some design decisions were made with consideration for this. 
 
 ## Design: top-level
 

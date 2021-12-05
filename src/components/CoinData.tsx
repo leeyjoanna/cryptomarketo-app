@@ -45,8 +45,6 @@ function CoinData({listID, coinData, coinName, coinList, setCoinList}:DataProps)
             marketoService
                 .updateList(coinList.concat(newListItem), listID)
                 .then(response => {
-                    console.log('updated', response);
-                    console.log(setCoinList);
                     setCoinList(coinList.concat(newListItem));
                 })
                 .catch(e => console.log(e))
