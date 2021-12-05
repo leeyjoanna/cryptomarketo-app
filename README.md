@@ -4,7 +4,7 @@
 A web app where users can search for cryptocurrency details and create their own watch list stored locally.\
 
 Limitations: free tier API key limits to 5 calls/minute with reduced data provided about cryptocurrencies.\
-Some design decisions were made with consideration for this. 
+Some design decisions were made with consideration for this.
 
 ## Design: top-level
 
@@ -24,5 +24,3 @@ Architectural pattern: MVC
 ## Design decisions
 
 ## Accessibility
-
-
