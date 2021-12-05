@@ -29,16 +29,17 @@ function CoinData({listID, coinData, coinName, coinList, setCoinList}:DataProps)
         })
         return isInList;
     }
+
     const handleAddWatchList = () => {
         if(doesExistInList()){
-            console.log('that exists already');
+            alert(`oops, that's in your list already!`)
             return false;
         }
         if(coinData!==undefined && coinName!==undefined){
             let newListItem:CoinDB = {
                 name: coinName,
                 ticker: coinData?.symbol,
-                date: new Date().toString(),
+                date: coinData?.day,
                 last_price: coinData?.close
             }
             marketoService

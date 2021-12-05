@@ -6,6 +6,10 @@ const getHome = () => {
     return request.then(response => response.data)
 }
 
+const refreshList = (listID:string) => {
+    const request = axios.get(`/api/myList/refresh/${listID}`)
+    return request.then(response => response.data)
+}
 const getList = (listID:string) => {
     const request = axios.get(`/api/myList/${listID}`)
     return request.then(response => response.data)
@@ -48,6 +52,7 @@ const getAllServer = (listID:string) => {
 
 const services = {
     getHome,
+    refreshList,
     getList,
     createList,
     updateList,  

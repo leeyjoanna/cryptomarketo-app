@@ -31,8 +31,8 @@ type ResultProps = {
 function Result({listID, showSearch, results, coinList, setShowSearch, setCoinList}:ResultProps) {
     // want to set coinData to CoinInfo type 
     const [coinData, setCoinData] = useState<CoinInfo>()
-    const [coinNews, setCoinNews] = useState<CoinNews[]>()
-    const [coinName, setCoinName] = useState<string>()
+    const [coinNews, setCoinNews] = useState<CoinNews[]>([])
+    const [coinName, setCoinName] = useState<string>('')
 
     const handleCoinSelection = (e:React.MouseEvent<HTMLDivElement, MouseEvent>, itemName:string) => {
         console.log('clicked this', e.currentTarget.id)
@@ -50,7 +50,6 @@ function Result({listID, showSearch, results, coinList, setShowSearch, setCoinLi
             console.log('coin news', response);
             setCoinNews(response)
         })
-
     }
     console.log('inside result', results)
     if(showSearch){
@@ -58,8 +57,13 @@ function Result({listID, showSearch, results, coinList, setShowSearch, setCoinLi
             return(<div id="no-result-msg">No result found matching your search term.</div>)
         }
         return(
-            <div>
+            <div id="search-results">
+                <div>
                 {results.map((item, idx) => <div key={idx} className="result-name" id={item.base_currency_symbol} onClick={(e) => handleCoinSelection(e, item.name)}>{item.base_currency_symbol} ({item.name})!!</div>)}
+                </div>
+                <div className="info-container" id="coin-watch">
+                    <WatchList listID={listID} coinList={coinList} setCoinList={setCoinList} coinData={coinData} setCoinData={setCoinData} coinNews={coinNews} setCoinNews={setCoinNews} coinName={coinName} setCoinName={setCoinName} setShowSearch={setShowSearch}/>
+                </div>
             </div>
             
         )
@@ -75,11 +79,17 @@ function Result({listID, showSearch, results, coinList, setShowSearch, setCoinLi
                 <div className="info-container" id="coin-data">
                     <CoinData listID={listID} coinData={coinData} coinName={coinName} coinList={coinList} setCoinList={setCoinList}/>
                 </div>
+
+                <div className="info-container" id="coin-watch">
+                    <WatchList listID={listID} coinList={coinList} setCoinList={setCoinList} coinData={coinData} setCoinData={setCoinData} coinNews={coinNews} setCoinNews={setCoinNews} coinName={coinName} setCoinName={setCoinName} setShowSearch={setShowSearch}/>
+                </div>
             </div>
         )
     }
     else return (
-        <div></div>
+        <div className="info-container" id="coin-watch">
+            <WatchList listID={listID} coinList={coinList} setCoinList={setCoinList} coinData={coinData} setCoinData={setCoinData} coinNews={coinNews} setCoinNews={setCoinNews} coinName={coinName} setCoinName={setCoinName} setShowSearch={setShowSearch}/>
+        </div>
     )
     
 }

@@ -1,4 +1,4 @@
-import marketoService from '../services/marketo'
+import React from 'react';
 
 function Navbar():JSX.Element {
     const handleHomeClick:any = () => {

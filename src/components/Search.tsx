@@ -1,10 +1,7 @@
-// TODO: add search bar api here
-import React, {Dispatch, SetStateAction, useState} from "react"
+import react, {Dispatch, SetStateAction, useState} from "react"
 import marketoService from '../services/marketo'
 import Result from './Result'
-import ReactDOM from 'react-dom';
 import { Button, TextField } from '@mui/material';
-import WatchList from './WatchList';
 import {CoinDB} from '../types'
 
 
@@ -52,9 +49,9 @@ function Search({listID, coinList, setCoinList}:SearchProps){
                 </div>
                 <div id="results">
                     <Result listID={listID} showSearch={showSearch} results={results} setShowSearch={setShowSearch} coinList={coinList} setCoinList={setCoinList}/>
-                    <div className="info-container" id="coin-list">
+                    {/* <div className="info-container" id="coin-list">
                         <WatchList listID={listID} coinList={coinList} setCoinList={setCoinList}/>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
