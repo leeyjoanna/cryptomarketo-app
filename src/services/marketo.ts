@@ -39,18 +39,8 @@ const getCoinNews = (coinID: string) => {
   return request.then((response) => response.data);
 };
 
-const testService = ()=> {
-  const request = axios.get(`/api/testing`);
-  return request.then((response) => response.data);
-};
-
 const searchService = (searchTerm: string) => {
   const request = axios.get(`/api/search/`, { params: searchTerm });
-  return request.then((response) => response.data);
-};
-
-const getAllServer = (listID: string) => {
-  const request = axios.get(`/api/${listID}`);
   return request.then((response) => response.data);
 };
 
@@ -62,8 +52,6 @@ const services = {
   updateList,
   getCoin,
   getCoinNews,
-  testService,
-  getAllServer,
   searchService,
 };
 
