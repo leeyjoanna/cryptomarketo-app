@@ -1,12 +1,23 @@
 import axios from 'axios'
+import { CoinDB } from '../types'
 
 const getHome = () => {
     const request = axios.get(`/`)
     return request.then(response => response.data)
 }
 
-const getList = (uuid:string) => {
-    const request = axios.get(`/api/myList/${uuid}`)
+const getList = (listID:string) => {
+    const request = axios.get(`/api/myList/${listID}`)
+    return request.then(response => response.data)
+}
+
+const createList = (listID:string) => {
+    const request = axios.post(`/api/myList/${listID}`)
+    return request.then(response => response.data)
+}
+
+const updateList = (updatedList:CoinDB[], listID:string) => {
+    const request = axios.put(`/api/myList/${listID}`, {data: updatedList})
     return request.then(response => response.data)
 }
 
@@ -30,14 +41,16 @@ const searchService = (searchTerm:string) => {
     return request.then(response => response.data)
 }
 
-const getAllServer = (url:string) => {
-    const request = axios.get(`/api/${url}`)
+const getAllServer = (listID:string) => {
+    const request = axios.get(`/api/${listID}`)
     return request.then(response => response.data)
 }
 
 const services = {
     getHome,
-    getList, 
+    getList,
+    createList,
+    updateList,  
     getCoin,
     getCoinNews,
     testService,

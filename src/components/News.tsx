@@ -24,7 +24,7 @@ function News({coinNews}:NewsProps){
         <div>
             <div className="module-header">Recent Articles</div>
             
-            {coinNews?.map((item, idx) => <Article key={idx} articleData={item}/>)}
+            {coinNews?.map((item, idx) => <div key={idx}><Article articleData={item}/></div>)}
         </div>
     )
 }

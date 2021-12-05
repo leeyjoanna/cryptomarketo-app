@@ -1,28 +1,50 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import Cookies from 'universal-cookie'
 import Navbar from './components/Navbar'
 import Search from './components/Search'
 import marketoService from './services/marketo'
+import { CoinDB } from './types';
+import { v4 as uuid } from 'uuid'
 import './App.css';
 
-
-
 function App() {
-  let pageURL = (window.location.href).split('/')[3]
-  pageURL = pageURL.split('?')[0]
-  console.log('pageurl', pageURL)
+  const [coinList, setCoinList] = useState<CoinDB[]>([])
+  const [listID, setListID] = useState<string>('')
+  console.log('HHH', coinList);
 
   const hook = () => {
-    marketoService  
-      .getAllServer(pageURL)
-      .then(response => console.log('frontend', response))
+    const cookies = new Cookies()
+    const cookiesListID = cookies.get('marketoListID')
+    if(cookiesListID){
+      console.log('cookies found', cookiesListID);
+      setListID(cookiesListID)
+      marketoService
+        .getList(cookiesListID)
+        .then(response => {
+          setCoinList(response.coins)
+        })
+        .catch((e) => console.log(e))
+    }
+    else{
+      const newID:string = uuid();
+      console.log('cookies not found', newID);
+      cookies.set('marketoListID', newID, { path: '/'})
+      setListID(newID)
+      marketoService
+        .createList(newID)
+        .then(response => {
+          setCoinList(response.coins)
+        })
+        .catch((e) => console.log(e))
+    }
   }
 
-  useEffect(hook, )
+  useEffect(hook, [])
 
   return (
     <div id="App">
       <Navbar/>
-      <Search/>
+      <Search listID={listID} coinList={coinList} setCoinList={setCoinList}/>
     </div>
   );
 }

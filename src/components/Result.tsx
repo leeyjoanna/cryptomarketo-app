@@ -3,31 +3,40 @@ import News from './News'
 import CoinData from './CoinData'
 import WatchList from './WatchList'
 import marketoService from '../services/marketo'
-import {CoinName, CoinInfo, CoinNews} from '../types'
+import {CoinName, CoinInfo, CoinNews, CoinDB} from '../types'
 
 
 type ResultProps = {
+    listID: string,
     showSearch: boolean,
     results: CoinName[],
+    coinList: CoinDB[],
     setShowSearch: Dispatch<SetStateAction<boolean>>
+    setCoinList: Dispatch<SetStateAction<CoinDB[]>>
 }
 /**
  * Result returns component that lists out max 10 search results
  * Originally wanted to have search happen onChange with drop down below
  * search bar for user to click, however free-tier API limits calls to 5/min
  * making this feature not feasible
+ * @param listID
  * @param showCoin 
  * @param results
+ * @param coinList
+ * @param setShowSearch
+ * @param setCoinList
  * @returns 
  */
 
-function Result({showSearch, results, setShowSearch}:ResultProps) {
+function Result({listID, showSearch, results, coinList, setShowSearch, setCoinList}:ResultProps) {
     // want to set coinData to CoinInfo type 
     const [coinData, setCoinData] = useState<CoinInfo>()
     const [coinNews, setCoinNews] = useState<CoinNews[]>()
+    const [coinName, setCoinName] = useState<string>()
 
-    const handleCoinSelection = (e:React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const handleCoinSelection = (e:React.MouseEvent<HTMLDivElement, MouseEvent>, itemName:string) => {
         console.log('clicked this', e.currentTarget.id)
+        setCoinName(itemName)
         marketoService
         .getCoin(e.currentTarget.id)
         .then(response => {
@@ -50,8 +59,9 @@ function Result({showSearch, results, setShowSearch}:ResultProps) {
         }
         return(
             <div>
-                {results.map((item, idx) => <div key={idx} className="result-name" id={item.base_currency_symbol} onClick={(e) => handleCoinSelection(e)}>{item.base_currency_symbol} ({item.name})!!</div>)}
+                {results.map((item, idx) => <div key={idx} className="result-name" id={item.base_currency_symbol} onClick={(e) => handleCoinSelection(e, item.name)}>{item.base_currency_symbol} ({item.name})!!</div>)}
             </div>
+            
         )
     }
     if (coinData){
@@ -63,11 +73,7 @@ function Result({showSearch, results, setShowSearch}:ResultProps) {
                 </div>
 
                 <div className="info-container" id="coin-data">
-                    <CoinData coinData={coinData}/>
-                </div>
-
-                <div className="info-container" id="coin-list">
-                    <WatchList/>
+                    <CoinData listID={listID} coinData={coinData} coinName={coinName} coinList={coinList} setCoinList={setCoinList}/>
                 </div>
             </div>
         )

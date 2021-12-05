@@ -1,9 +1,9 @@
-import  marketoService from '../services/marketo'
+import marketoService from '../services/marketo'
 
 function Navbar():JSX.Element {
     const handleHomeClick:any = () => {
-        console.log('clicked')
-        window.location.reload()
+        console.log('home')
+        window.location.href='/'
         return false
     }
     return(

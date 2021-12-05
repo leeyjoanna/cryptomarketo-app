@@ -2,17 +2,15 @@ import react from 'react';
 import {CoinNews} from '../types'
 
 type ArticleProps = {
-    key: number;
     articleData: CoinNews;
 }
 /**
  * Data returns component that displays information about the coin
- * @param key 
  * @param articleData
  * @returns 
  */
 
-function Article({key, articleData}:ArticleProps){
+function Article({articleData}:ArticleProps){
     return(
         <div className="article-container">
             <div><a href={articleData.article_url}>{articleData.title}</a></div>
